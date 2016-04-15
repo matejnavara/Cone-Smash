@@ -33,6 +33,7 @@ public class menuScript : MonoBehaviour {
     //LEVEL SELECT MENU
     public void PlayPressed()
     {
+		levelMenu.GetComponent<levelMenuScript> ().checkLevels ();
         levelMenu.enabled = true;
         startButton.enabled = false;
         settingsButton.enabled = false;

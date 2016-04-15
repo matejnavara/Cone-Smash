@@ -53,7 +53,7 @@ public class settingsMenuScript : MonoBehaviour {
     {
         PlayerPrefs.DeleteAll();
         setClassic();
-        levelMenu.GetComponent<levelMenuScript>().checkStars();
+		levelMenu.GetComponent<levelMenuScript> ().checkLevels ();
     }
 
 }
