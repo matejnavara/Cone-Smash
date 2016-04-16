@@ -13,7 +13,6 @@ public class levelMenuScript : MonoBehaviour {
 	private Button level4;
 
     private Image stars;
-	private bool unlocked;
 
 	// Use this for initialization
 	void Start () {
@@ -34,28 +33,50 @@ public class levelMenuScript : MonoBehaviour {
 
 	}
 
+    //Checks if a level is locked/unlocked as well as the number of stars
 	public void checkLevels(){
-		checkStars ();
-		checkLocked ();
-	}
 
-    public void checkStars()
-    {
         int total = 0;
 
         for(int i = 0; i < levels.Length; i++)
         {
-			string temp = "level" + (i+1) + "Stars";
-            int starcount = PlayerPrefs.GetInt(temp);
-			if (starcount >= 1) { levels[i].transform.Find("star1").GetComponent<Image>().color = Color.yellow; 
-			} else { levels[i].transform.Find("star1").GetComponent<Image>().color = Color.grey; }
-			if (starcount >= 2) { levels[i].transform.Find("star2").GetComponent<Image>().color = Color.yellow; 
-			} else { levels[i].transform.Find("star2").GetComponent<Image>().color = Color.grey; }
-			if (starcount == 3) { levels[i].transform.Find("star3").GetComponent<Image>().color = Color.yellow; 
-			} else { levels[i].transform.Find("star3").GetComponent<Image>().color = Color.grey; }
-            print("Fixing stars for " + temp);
+            string previousLvl = "level" + i + "Stars";
+            string currentLvl = "level" + (i+1) + "Stars";
+            int previousStars = PlayerPrefs.GetInt(previousLvl);
+            int currentStars = PlayerPrefs.GetInt(currentLvl);
 
-            total += starcount;
+            Image star1 = levels[i].transform.Find("star1").GetComponent<Image>();
+            Image star2 = levels[i].transform.Find("star2").GetComponent<Image>();
+            Image star3 = levels[i].transform.Find("star3").GetComponent<Image>();
+
+            Image locked = levels[i].transform.Find("locked").GetComponent<Image>();
+
+            //Checks if level 2 onwards have been unlocked from getting 1 of more star in the previous level
+            if (previousStars > 0 || i == 0)
+            {
+                locked.enabled = false;
+                levels[i].interactable = true;
+                print("Unlocking level " + (i + 1));
+                star1.enabled = true;
+                star2.enabled = true;
+                star3.enabled = true;
+                print("Fixing stars for " + currentLvl);
+
+                if (currentStars >= 1) { star1.color = Color.yellow; } else { star1.color = Color.grey; }
+                if (currentStars >= 2) { star2.color = Color.yellow; } else { star2.color = Color.grey; }
+                if (currentStars == 3) { star3.color = Color.yellow; } else { star3.color = Color.grey; }
+
+            }
+            else {
+                locked.enabled = true;
+                levels[i].interactable = false;
+                print("Locking level " + (i + 1));
+                star1.enabled = false;
+                star2.enabled = false;
+                star3.enabled = false;
+            }         
+
+            total += currentStars;
         }
 
         totalStars(total);
@@ -64,24 +85,6 @@ public class levelMenuScript : MonoBehaviour {
     void totalStars(int x)
     {
         stars.transform.Find("totalStars").GetComponent<Text>().text = x.ToString();
-    }
-
-    void checkLocked()
-    {
-
-        for(int i = 1; i < levels.Length - 1; i++)
-        {
-			string temp = "level" + (i) + "Stars";
-            int starcount = PlayerPrefs.GetInt(temp);
-			if (starcount > 0 ) {
-				levels[i+1].transform.Find("locked").GetComponent<Image>().enabled = false; 
-				levels [i+1].interactable = true;
-				} else { 
-				levels[i+1].transform.Find("locked").GetComponent<Image>().enabled = true; 
-				levels [i+1].interactable = false;
-			}
-            print("Fixing locked for " + temp);
-        }
     }
 
 	
