@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour {
     private Button mainmenuButton;
 
     //Game Logic Elements
+    public bool countDown;
     private bool gameOver;
 	private bool newHighscore;
     private float timer;
@@ -79,8 +80,9 @@ public class GameManager : MonoBehaviour {
         nullCheck();
 
         //Counts down from defined "timer" to reach Game Over.
-        if (!gameOver)
+        if (!gameOver && countDown)
         {
+
             timer -= Time.deltaTime;
             timerText.text = timer.ToString("F2");
             if (timer <= 0)
@@ -188,6 +190,7 @@ public class GameManager : MonoBehaviour {
     //Resets the game loop upon pressing play again
     public void Reset()
     {
+        countDown = false;
         gameOver = false;
         newHighscore = false;
         index = level.getIndex();
