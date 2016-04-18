@@ -9,5 +9,7 @@ public class countdown : MonoBehaviour {
     {
         GMS = GameObject.Find("GameManager").GetComponent<GameManager>();
         GMS.countDown = true;
+        GMS.controller.SetActive(true);
+
     }
 }

@@ -10,9 +10,7 @@ public class GameManager : MonoBehaviour {
     private int index;
 
     //Control Elements
-    private GameObject classicControl;
-    private GameObject tiltControl;
-	private GameObject controller;
+	public GameObject controller;
 
     //UI Elements
     private Text countText;
@@ -27,7 +25,7 @@ public class GameManager : MonoBehaviour {
 
     //Game Logic Elements
     public bool countDown;
-    private bool gameOver;
+    public bool gameOver;
 	private bool newHighscore;
     private float timer;
     private int coneCount;
@@ -43,6 +41,7 @@ public class GameManager : MonoBehaviour {
     void Awake()
     {
         GetThisGameManager();
+        controllerCheck();
     }
 
     void GetThisGameManager()
@@ -63,7 +62,6 @@ public class GameManager : MonoBehaviour {
     void Start()
     {
 
-        //GetThisGameManager();
         nullCheck();
         Reset();
         print("START again");
@@ -82,7 +80,6 @@ public class GameManager : MonoBehaviour {
         //Counts down from defined "timer" to reach Game Over.
         if (!gameOver && countDown)
         {
-
             timer -= Time.deltaTime;
             timerText.text = timer.ToString("F2");
             if (timer <= 0)
@@ -100,13 +97,13 @@ public class GameManager : MonoBehaviour {
     {
         if(!PlayerPrefs.HasKey("Control") || PlayerPrefs.GetString("Control") == "classic")
         {
-			controller = classicControl;
-			tiltControl.SetActive(false);
-        } else if(PlayerPrefs.GetString("Control") == "tilt")
+            controller =  (GameObject) Instantiate(Resources.Load("Prefabs/ControlClassic"));
+
+        } else
         {
-			controller = tiltControl;
-			classicControl.SetActive(false);
+            controller = (GameObject)Instantiate(Resources.Load("Prefabs/ControlTilt"));
         }
+
     }
 
     //SCORING METHODS
@@ -139,7 +136,6 @@ public class GameManager : MonoBehaviour {
         countText.enabled = false;
         timerText.enabled = false;
         GameObject.FindGameObjectWithTag("Player").SetActive(false);
-		classicControl.SetActive (false);
         gameoverPanel.SetActive(true);
 
         checkStars ();
@@ -218,9 +214,7 @@ public class GameManager : MonoBehaviour {
     void nullCheck()
     {
         if (level == null) { level = GameObject.Find("levelID").GetComponent<Level>(); }
-        if (classicControl == null) { classicControl = GameObject.Find("MobileSingleStickControl"); }
-        if (tiltControl == null) { tiltControl = GameObject.Find("MobileTiltControlRig"); }
-        //controllerCheck();
+        if(controller == null) { controller = GameObject.FindGameObjectWithTag("GameController"); }
         if (countText == null){ countText = GameObject.Find("Canvas/Count Text").GetComponent<Text>();}
         if(timerText == null){ timerText = GameObject.Find("Canvas/Timer Text").GetComponent<Text>();}
         if (finalText == null){ finalText = GameObject.Find("Canvas/GameOver Panel/final Text").GetComponent<Text>();}
