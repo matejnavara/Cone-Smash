@@ -11,5 +11,7 @@ public class countdown : MonoBehaviour {
         GMS.countDown = true;
         GMS.controller.SetActive(true);
 
+        GMS.SetCountText(); //probably move elsewhere along with timertext
+
     }
 }

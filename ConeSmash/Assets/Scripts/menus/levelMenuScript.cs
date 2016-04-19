@@ -11,23 +11,26 @@ public class levelMenuScript : MonoBehaviour {
 	private Button level2;
 	private Button level3;
 	private Button level4;
+    private Button level5;
 
     private Image stars;
 
 	// Use this for initialization
 	void Start () {
 
-        levels = new Button[4];
+        levels = new Button[5];
 		level1 = GameObject.Find ("LevelMenu/Level1-1").GetComponent<Button>();
 		level2 = GameObject.Find ("LevelMenu/Level1-2").GetComponent<Button>();
 		level3 = GameObject.Find ("LevelMenu/Level1-3").GetComponent<Button>();
 		level4 = GameObject.Find ("LevelMenu/Level1-4").GetComponent<Button>();
+        level5 = GameObject.Find("LevelMenu/Level1-5").GetComponent<Button>();
         stars = GameObject.Find("LevelMenu/Stars").GetComponent<Image>();
 
         levels[0] = level1;
         levels[1] = level2;
 		levels[2] = level3;
 		levels[3] = level4;
+        levels[4] = level5;
 
 		checkLevels ();
 

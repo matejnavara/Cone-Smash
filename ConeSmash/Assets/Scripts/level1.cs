@@ -7,7 +7,7 @@ public class level1 : Level {
     {
         levelName = "level1";
 		levelIndex = 1;
-		levelStartTime = 15f;
+		levelStartTime = 30f;
 
     }
 		

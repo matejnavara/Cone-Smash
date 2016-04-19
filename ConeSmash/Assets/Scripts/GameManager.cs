@@ -123,7 +123,7 @@ public class GameManager : MonoBehaviour {
     }
 
     //Updating score text
-    void SetCountText()
+    public void SetCountText()
     {
         countText.text = coneCount.ToString() + " / " + coneTotal.ToString();
     }
@@ -193,7 +193,6 @@ public class GameManager : MonoBehaviour {
         timer = level.getStartTime();
         coneCount = 0;
         coneTotal = countCones();
-        SetCountText();
         gameoverPanel.SetActive(false);
         star1.color = Color.grey;
         star2.color = Color.grey;
@@ -215,15 +214,15 @@ public class GameManager : MonoBehaviour {
     {
         if (level == null) { level = GameObject.Find("levelID").GetComponent<Level>(); }
         if(controller == null) { controller = GameObject.FindGameObjectWithTag("GameController"); }
-        if (countText == null){ countText = GameObject.Find("Canvas/Count Text").GetComponent<Text>();}
-        if(timerText == null){ timerText = GameObject.Find("Canvas/Timer Text").GetComponent<Text>();}
-        if (finalText == null){ finalText = GameObject.Find("Canvas/GameOver Panel/final Text").GetComponent<Text>();}
-		if (star1 == null){ star1 = GameObject.Find("Canvas/GameOver Panel/star1").GetComponent<Image>();}
-		if (star2 == null){ star2 = GameObject.Find("Canvas/GameOver Panel/star2").GetComponent<Image>();}
-		if (star3 == null){ star3 = GameObject.Find("Canvas/GameOver Panel/star3").GetComponent<Image>();}
-        if (gameoverPanel == null){ gameoverPanel = GameObject.Find("Canvas/GameOver Panel");}
-        if (playagainButton == null){ playagainButton = GameObject.Find("Canvas/GameOver Panel/PlayAgain Button").GetComponent<Button>();}
-        if (mainmenuButton == null) { mainmenuButton = GameObject.Find("Canvas/GameOver Panel/MainMenu Button").GetComponent<Button>(); }
+        if (countText == null){ countText = GameObject.Find("GameUI/Count Text").GetComponent<Text>();}
+        if(timerText == null){ timerText = GameObject.Find("GameUI/Timer Text").GetComponent<Text>();}
+        if (finalText == null){ finalText = GameObject.Find("GameUI/GameOver Panel/final Text").GetComponent<Text>();}
+		if (star1 == null){ star1 = GameObject.Find("GameUI/GameOver Panel/star1").GetComponent<Image>();}
+		if (star2 == null){ star2 = GameObject.Find("GameUI/GameOver Panel/star2").GetComponent<Image>();}
+		if (star3 == null){ star3 = GameObject.Find("GameUI/GameOver Panel/star3").GetComponent<Image>();}
+        if (gameoverPanel == null){ gameoverPanel = GameObject.Find("GameUI/GameOver Panel");}
+        if (playagainButton == null){ playagainButton = GameObject.Find("GameUI/GameOver Panel/PlayAgain Button").GetComponent<Button>();}
+        if (mainmenuButton == null) { mainmenuButton = GameObject.Find("GameUI/GameOver Panel/MainMenu Button").GetComponent<Button>(); }
 
         if (!gameOver && gameoverPanel.activeSelf){ gameoverPanel.SetActive(false);}
     }
