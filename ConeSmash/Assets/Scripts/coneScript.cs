@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using System.IO;
 
 public class coneScript : MonoBehaviour {
 
@@ -13,11 +15,12 @@ public class coneScript : MonoBehaviour {
     private float offset = 0.6f;
 
 
-	// Use this for initialization
-	void Start () {     
+    // Use this for initialization
+    void Start () {     
         cone = gameObject;
         gm = GameManager.Manager;
         cone.transform.rotation = Quaternion.identity;
+
         knockedOver = false;
         scored = false;
 
@@ -49,8 +52,9 @@ public class coneScript : MonoBehaviour {
             cone.GetComponentInChildren<MeshCollider>().enabled = true;
             cone.GetComponentInChildren<CapsuleCollider>().enabled = false;
 
-            //print("Knocked over: " + cone.name);
-            gm.AddScore(1);
+       
+            gm.AddScore(1,gameObject);
+
             scored = true;
         }
 
@@ -60,7 +64,7 @@ public class coneScript : MonoBehaviour {
             cone.GetComponentInChildren<CapsuleCollider>().enabled = true;
             cone.GetComponentInChildren<MeshCollider>().enabled = false;
             knockedOver = false;
-            gm.AddScore(-1);
+            gm.AddScore(-1,gameObject);
             scored = false;
 
         }

@@ -31,6 +31,12 @@ public class GameManager : MonoBehaviour {
     private int coneCount;
     private int coneTotal;
 
+    public AudioSource audioCone;
+    public AudioClip soundCone;
+
+    public AudioSource audioBG;
+    public AudioClip soundBG;
+
     private static GameManager manager;
 
     public static GameManager Manager
@@ -77,6 +83,11 @@ public class GameManager : MonoBehaviour {
     {
         nullCheck();
 
+        if (!audioBG.isPlaying)
+        {
+            audioBG.PlayOneShot(soundBG);
+        }
+
         //Counts down from defined "timer" to reach Game Over.
         if (!gameOver && countDown)
         {
@@ -116,9 +127,21 @@ public class GameManager : MonoBehaviour {
     }
 
     //Incrementing/decrementing score through calls from coneScript
-    public void AddScore(int x)
+    public void AddScore(int x, GameObject cone)
     {
         coneCount = coneCount + x;
+        audioCone = cone.GetComponent<AudioSource>();
+        soundCone = (AudioClip)Instantiate(Resources.Load("Audio/plastic_small_0" + Random.Range(1, 5).ToString()));
+
+        if (x > 0 && !audioCone.isPlaying && !gameOver)
+        {            
+            audioCone.PlayOneShot(soundCone,0.1f);
+            print("Playing: " + soundCone.name);
+        } else
+        {
+            audioCone.Stop();
+        }
+        
         SetCountText();
     }
 
@@ -194,6 +217,10 @@ public class GameManager : MonoBehaviour {
         coneCount = 0;
         coneTotal = countCones();
         gameoverPanel.SetActive(false);
+
+        audioBG = gameObject.GetComponent<AudioSource>();
+        soundBG = (AudioClip)Instantiate(Resources.Load("Audio/Plane_Town_LOOP"));
+
         star1.color = Color.grey;
         star2.color = Color.grey;
         star3.color = Color.grey;
