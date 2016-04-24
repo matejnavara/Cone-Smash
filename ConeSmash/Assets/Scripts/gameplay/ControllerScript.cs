@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PauseControl : MonoBehaviour {
+public class ControllerScript : MonoBehaviour {
 
     public GameManager GMS;
     public GameObject controller;
@@ -15,7 +15,7 @@ public class PauseControl : MonoBehaviour {
 
     void Update()
     {
-        if (!GMS.countDown || GMS.gameOver)
+        if (!GMS.countDown || GMS.gameOver || GMS.paused)
         {
             controller.SetActive(false);
             print("Controls off");

@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour {
 
     //Control Elements
 	public GameObject controller;
+    public GameObject pauseButton;
 
     //UI Elements
     private Text countText;
@@ -26,6 +27,7 @@ public class GameManager : MonoBehaviour {
     //Game Logic Elements
     public bool countDown;
     public bool gameOver;
+    public bool paused;
 	private bool newHighscore;
     private float timer;
     private int coneCount;
@@ -89,7 +91,7 @@ public class GameManager : MonoBehaviour {
         }
 
         //Counts down from defined "timer" to reach Game Over.
-        if (!gameOver && countDown)
+        if (!gameOver && !paused && countDown)
         {
             timer -= Time.deltaTime;
             timerText.text = timer.ToString("F2");
@@ -211,6 +213,7 @@ public class GameManager : MonoBehaviour {
     {
         countDown = false;
         gameOver = false;
+        paused = false;
         newHighscore = false;
         index = level.getIndex();
         timer = level.getStartTime();
@@ -230,8 +233,6 @@ public class GameManager : MonoBehaviour {
     //Returns to main menu upon pressing main menu
     public void MainMenu()
     {
-        gameOver = false;
-
         Destroy(this.gameObject);
         SceneManager.LoadScene(0);
     }
@@ -250,6 +251,7 @@ public class GameManager : MonoBehaviour {
         if (gameoverPanel == null){ gameoverPanel = GameObject.Find("GameUI/GameOver Panel");}
         if (playagainButton == null){ playagainButton = GameObject.Find("GameUI/GameOver Panel/PlayAgain Button").GetComponent<Button>();}
         if (mainmenuButton == null) { mainmenuButton = GameObject.Find("GameUI/GameOver Panel/MainMenu Button").GetComponent<Button>(); }
+        if (pauseButton == null) { pauseButton = GameObject.Find("GameUI/Pause Button"); }
 
         if (!gameOver && gameoverPanel.activeSelf){ gameoverPanel.SetActive(false);}
     }

@@ -10,6 +10,7 @@ public class countdown : MonoBehaviour {
         GMS = GameObject.Find("GameManager").GetComponent<GameManager>();
         GMS.countDown = true;
         GMS.controller.SetActive(true);
+        GMS.pauseButton.SetActive(true);
 
         GMS.SetCountText(); //probably move elsewhere along with timertext
 
