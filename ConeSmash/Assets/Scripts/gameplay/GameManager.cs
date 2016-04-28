@@ -33,6 +33,9 @@ public class GameManager : MonoBehaviour {
     private int coneCount;
     private int coneTotal;
 
+    //Game Audio
+    private bool music;
+    private bool sfx;
     public AudioSource audioCone;
     public AudioClip soundCone;
 
@@ -50,6 +53,7 @@ public class GameManager : MonoBehaviour {
     {
         GetThisGameManager();
         controllerCheck();
+        soundCheck();
     }
 
     void GetThisGameManager()
@@ -105,7 +109,6 @@ public class GameManager : MonoBehaviour {
     }
 
     //Checks for chosen control scheme
-	//TODO Make this work, currently issue with instantiating both control schemes at once. Perhaps need to instantiate one control dependant on choice.
     void controllerCheck()
     {
         if(!PlayerPrefs.HasKey("Control") || PlayerPrefs.GetString("Control") == "classic")
@@ -116,6 +119,16 @@ public class GameManager : MonoBehaviour {
         {
             controller = (GameObject)Instantiate(Resources.Load("Prefabs/ControlTilt"));
         }
+
+    }
+
+    void soundCheck()
+    {
+        string m = PlayerPrefs.GetString("Music");
+        string s = PlayerPrefs.GetString("Sfx");
+
+        if (m == null || m == "on"){ music = true; } else { music = false; }
+        if (s == null || s == "on") { sfx = true; } else { sfx = false; }
 
     }
 
@@ -135,13 +148,17 @@ public class GameManager : MonoBehaviour {
         audioCone = cone.GetComponent<AudioSource>();
         soundCone = (AudioClip)Instantiate(Resources.Load("Audio/plastic_small_0" + Random.Range(1, 5).ToString()));
 
-        if (x > 0 && !audioCone.isPlaying && !gameOver)
-        {            
-            audioCone.PlayOneShot(soundCone,0.1f);
-            print("Playing: " + soundCone.name);
-        } else
+        if (sfx)
         {
-            audioCone.Stop();
+            if (x > 0 && !audioCone.isPlaying && !gameOver)
+            {
+                audioCone.PlayOneShot(soundCone, 0.1f);
+                print("Playing: " + soundCone.name);
+            }
+            else
+            {
+                audioCone.Stop();
+            }
         }
         
         SetCountText();
@@ -222,7 +239,10 @@ public class GameManager : MonoBehaviour {
         gameoverPanel.SetActive(false);
 
         audioBG = gameObject.GetComponent<AudioSource>();
-        soundBG = (AudioClip)Instantiate(Resources.Load("Audio/Plane_Town_LOOP"));
+        if (music)
+        {
+            soundBG = (AudioClip)Instantiate(Resources.Load("Audio/Plane_Town_LOOP"));
+        }        
 
         star1.color = Color.grey;
         star2.color = Color.grey;

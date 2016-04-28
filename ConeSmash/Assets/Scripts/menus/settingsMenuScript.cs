@@ -23,42 +23,42 @@ public class settingsMenuScript : MonoBehaviour {
 
         if (PlayerPrefs.HasKey("Control")) { controlChoice(PlayerPrefs.GetString("Control")); } else { controlChoice("classic"); }
         if(PlayerPrefs.HasKey("Music") && PlayerPrefs.GetString("Music") == "off") { musicToggle.isOn = false; } else { musicToggle.isOn = true; }
+        if (PlayerPrefs.HasKey("Sfx") && PlayerPrefs.GetString("Sfx") == "off") { sfxToggle.isOn = false; } else { sfxToggle.isOn = true; }
     }
 
 
-    //FIX TOGGLES
+    //SOUND
     public void toggleMusic()
     {
-        if (musicToggle.isOn == true)
+
+        if (musicToggle.isOn)
         {
-            musicToggle.isOn = false;
-            PlayerPrefs.SetString("Music", "off");
-            print("MUSIC OFF");
-        }else if (musicToggle.isOn == false)
-        {
-            musicToggle.isOn = true;
             PlayerPrefs.SetString("Music", "on");
             print("MUSIC ON");
+        }
+        else if (!musicToggle.isOn)
+        {
+            PlayerPrefs.SetString("Music", "off");
+            print("MUSIC OFF");
         }
     }
 
     public void toggleSfx()
     {
+
         if (sfxToggle.isOn)
         {
-            sfxToggle.isOn = false;
-            PlayerPrefs.SetString("Sfx", "off");
-            print("SFX OFF");
-        } else if (!sfxToggle.isOn)
-        {
-            sfxToggle.isOn = true;
             PlayerPrefs.SetString("Sfx", "on");
             print("SFX ON");
+        } else if (!sfxToggle.isOn)
+        {
+            PlayerPrefs.SetString("Sfx", "off");
+            print("SFX OFF");
         }
     }
 
 
-
+    //CONTROLS
     void controlChoice(string control)
     {
         if(control == "classic") {
@@ -89,11 +89,14 @@ public class settingsMenuScript : MonoBehaviour {
         
     }
 
+    //DATA CLEAR
     public void setClear()
     {
         PlayerPrefs.DeleteAll();
         setClassic();
-		levelMenu.GetComponent<levelMenuScript> ().checkLevels ();
+        musicToggle.isOn = true;
+        sfxToggle.isOn = true;
+        levelMenu.GetComponent<levelMenuScript> ().checkLevels ();
     }
 
 }
