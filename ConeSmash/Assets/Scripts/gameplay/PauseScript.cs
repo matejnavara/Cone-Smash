@@ -7,6 +7,7 @@ public class PauseScript : MonoBehaviour {
     public GameManager GMS;
     public Rigidbody player;
     public GameObject pauseButton;
+    public GameObject pausePanel;
     public GameObject countdown;
 
     void Start()
@@ -15,6 +16,7 @@ public class PauseScript : MonoBehaviour {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>();
         countdown = GameObject.Find("GameUI/Countdown");
         pauseButton = this.gameObject;
+        pausePanel = GameObject.Find("GameUI/Pause Panel");
 
     }
 
@@ -33,6 +35,7 @@ public class PauseScript : MonoBehaviour {
         {
             GMS.paused = true;
             player.isKinematic = true;
+            pausePanel.SetActive(true);
             
         } else if(GMS.paused)
         {
@@ -40,6 +43,7 @@ public class PauseScript : MonoBehaviour {
             //countdown.SetActive(true); work to get countdown after unpause
             player.isKinematic = false;
             GMS.controller.SetActive(true);
+
         }
     }
 }

@@ -5,7 +5,6 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour {
 
-	//TODO abstract level implementation.
 	public Level level;
     private int index;
 
