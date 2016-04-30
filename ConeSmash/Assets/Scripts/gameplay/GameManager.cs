@@ -88,9 +88,12 @@ public class GameManager : MonoBehaviour {
     {
         nullCheck();
 
-        if (!audioBG.isPlaying)
+        if (music)
         {
-            audioBG.PlayOneShot(soundBG);
+            if (!audioBG.isPlaying) { audioBG.PlayOneShot(soundBG); }
+        } else if (!music)
+        {
+            audioBG.Stop();
         }
 
         //Counts down from defined "timer" to reach Game Over.
@@ -129,6 +132,18 @@ public class GameManager : MonoBehaviour {
         if (m == null || m == "on"){ music = true; } else { music = false; }
         if (s == null || s == "on") { sfx = true; } else { sfx = false; }
 
+    }
+
+    public void soundOn(string x)
+    {
+        if(x == "music") { music = true; }
+        if (x == "sfx") { sfx = true; }
+    }
+
+    public void soundOff(string x)
+    {
+        if (x == "music") { music = false; }
+        if (x == "sfx") { sfx = false; }
     }
 
     //SCORING METHODS
@@ -238,10 +253,8 @@ public class GameManager : MonoBehaviour {
         gameoverPanel.SetActive(false);
 
         audioBG = gameObject.GetComponent<AudioSource>();
-        if (music)
-        {
-            soundBG = (AudioClip)Instantiate(Resources.Load("Audio/Plane_Town_LOOP"));
-        }        
+        soundBG = (AudioClip)Instantiate(Resources.Load("Audio/Plane_Town_LOOP"));
+      
 
         star1.color = Color.grey;
         star2.color = Color.grey;
