@@ -253,7 +253,7 @@ public class GameManager : MonoBehaviour {
         gameoverPanel.SetActive(false);
 
         audioBG = gameObject.GetComponent<AudioSource>();
-        soundBG = (AudioClip)Instantiate(Resources.Load("Audio/Plane_Town_LOOP"));
+        soundBG = (AudioClip)Instantiate(Resources.Load("Audio/Stupid Robot"));
       
 
         star1.color = Color.grey;
