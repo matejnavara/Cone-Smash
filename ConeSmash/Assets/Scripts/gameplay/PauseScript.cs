@@ -11,6 +11,7 @@ public class PauseScript : MonoBehaviour {
     public GameObject countdown;
     public GameObject playImage;
     public GameObject pauseImage;
+    private GameObject overlay;
 
     void Start()
     {
@@ -21,9 +22,11 @@ public class PauseScript : MonoBehaviour {
         pausePanel = GameObject.Find("GameUI/Pause Panel");
         playImage = GameObject.Find("GameUI/Pause Button/play");
         pauseImage = GameObject.Find("GameUI/Pause Button/pause");
+        overlay = GameObject.Find("GameUI/Overlay");
 
         pauseImage.SetActive(true);
         playImage.SetActive(false);
+        overlay.SetActive(false);
     }
 
     void Update()
@@ -42,16 +45,20 @@ public class PauseScript : MonoBehaviour {
             GMS.paused = true;
             pauseImage.SetActive(false);
             playImage.SetActive(true);
+
             player.isKinematic = true;
             pausePanel.SetActive(true);
+            overlay.SetActive(true);
             
         } else if(GMS.paused)
         {
             GMS.paused = false;
             pauseImage.SetActive(true);
             playImage.SetActive(false);
+
             //countdown.SetActive(true); work to get countdown after unpause
             player.isKinematic = false;
+            overlay.SetActive(false);
             GMS.controller.SetActive(true);
 
         }
