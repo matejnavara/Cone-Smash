@@ -13,15 +13,11 @@ public class GameManager : MonoBehaviour {
     public GameObject pauseButton;
 
     //UI Elements
-    private Text countText;
-    private Text timerText;
-    private Text finalText;
-	private Image star1;
-	private Image star2;
-	private Image star3;
+    private Text countText, timerText, finalText;
+    private Image star1, star2, star3;
+    private Text s1Txt, s2Txt, s3Txt;
     private GameObject gameoverPanel;
-    private Button playagainButton;
-    private Button mainmenuButton;
+    private Button playagainButton, mainmenuButton;
 
     //Game Logic Elements
     public bool countDown;
@@ -202,20 +198,38 @@ public class GameManager : MonoBehaviour {
 
     }
 
+    //TODO It works...but please make this much much nicer. ~12 lines of code, not 30.
 	void checkStars(){
-		if (coneCount > (coneTotal * 0.6)) {
-			star3.color = Color.yellow;
-			if (level.getStars() == null || level.getStars() < 3) { level.setStars (3); }
+        if (coneCount < (coneTotal * 0.2)){
+            s3Txt.text = Mathf.Round(coneTotal * 0.6f).ToString();
+            s2Txt.text = Mathf.Round(coneTotal * 0.4f).ToString();
+            s1Txt.text = Mathf.Round(coneTotal * 0.2f).ToString();
         }
-		if (coneCount > (coneTotal * 0.4)) {
-			star2.color = Color.yellow;
-			if(level.getStars() == null || level.getStars() < 2) { level.setStars(2); }
-		}
-		if (coneCount > (coneTotal * 0.2)) {
-			star1.color = Color.yellow;
-			if (level.getStars() == null || level.getStars() < 1) { level.setStars(1); }
+        if (coneCount > (coneTotal * 0.2))
+        {
+            star1.color = Color.yellow;
+            s3Txt.text = Mathf.Round(coneTotal * 0.6f).ToString();
+            s2Txt.text = Mathf.Round(coneTotal * 0.4f).ToString();
+            s1Txt.text = "";
+            if (level.getStars() == null || level.getStars() < 1) { level.setStars(1); }
         }
-	}
+        if (coneCount > (coneTotal * 0.4))
+        {
+            star2.color = Color.yellow;
+            s3Txt.text = Mathf.Round(coneTotal * 0.6f).ToString();
+            s2Txt.text = "";
+            s1Txt.text = "";
+            if (level.getStars() == null || level.getStars() < 2) { level.setStars(2); }
+        }
+        if (coneCount > (coneTotal * 0.6))
+        {
+            star3.color = Color.yellow;
+            s3Txt.text = "";
+            s2Txt.text = "";
+            s1Txt.text = "";
+            if (level.getStars() == null || level.getStars() < 3) { level.setStars(3); }
+        }
+    }
 
     void checkHighScore()
     {
@@ -280,6 +294,9 @@ public class GameManager : MonoBehaviour {
 		if (star1 == null){ star1 = GameObject.Find("GameUI/GameOver Panel/star1").GetComponent<Image>();}
 		if (star2 == null){ star2 = GameObject.Find("GameUI/GameOver Panel/star2").GetComponent<Image>();}
 		if (star3 == null){ star3 = GameObject.Find("GameUI/GameOver Panel/star3").GetComponent<Image>();}
+        if (s1Txt == null) { s1Txt = GameObject.Find("GameUI/GameOver Panel/star1/Text").GetComponent<Text>(); }
+        if (s2Txt == null) { s2Txt = GameObject.Find("GameUI/GameOver Panel/star2/Text").GetComponent<Text>(); }
+        if (s3Txt == null) { s3Txt = GameObject.Find("GameUI/GameOver Panel/star3/Text").GetComponent<Text>(); }
         if (gameoverPanel == null){ gameoverPanel = GameObject.Find("GameUI/GameOver Panel");}
         if (playagainButton == null){ playagainButton = GameObject.Find("GameUI/GameOver Panel/PlayAgain Button").GetComponent<Button>();}
         if (mainmenuButton == null) { mainmenuButton = GameObject.Find("GameUI/GameOver Panel/MainMenu Button").GetComponent<Button>(); }
