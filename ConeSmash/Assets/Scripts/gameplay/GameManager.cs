@@ -198,37 +198,35 @@ public class GameManager : MonoBehaviour {
 
     }
 
-    //TODO It works...but please make this much much nicer. ~12 lines of code, not 30.
+    //TODO It works...but please make this much much nicer. Still not great.
 	void checkStars(){
-        if (coneCount < (coneTotal * 0.2)){
+        if(coneCount > (coneTotal * 0.6f))
+        {
+            s3Txt.text = "";
+            s2Txt.text = "";
+            s1Txt.text = "";
+            star3.color = Color.yellow;
+            star2.color = Color.yellow;
+            star1.color = Color.yellow;
+        } else if (coneCount > (coneTotal * 0.4f))
+        {
+            s3Txt.text = Mathf.Round(coneTotal * 0.6f).ToString();
+            s2Txt.text = "";
+            s1Txt.text = "";
+            star2.color = Color.yellow;
+            star1.color = Color.yellow;
+        } else if (coneCount > (coneTotal * 0.2f))
+        {
+            s3Txt.text = Mathf.Round(coneTotal * 0.6f).ToString();
+            s2Txt.text = Mathf.Round(coneTotal * 0.4f).ToString();
+            s1Txt.text = "";
+            star1.color = Color.yellow;
+        } else {
             s3Txt.text = Mathf.Round(coneTotal * 0.6f).ToString();
             s2Txt.text = Mathf.Round(coneTotal * 0.4f).ToString();
             s1Txt.text = Mathf.Round(coneTotal * 0.2f).ToString();
         }
-        if (coneCount > (coneTotal * 0.2))
-        {
-            star1.color = Color.yellow;
-            s3Txt.text = Mathf.Round(coneTotal * 0.6f).ToString();
-            s2Txt.text = Mathf.Round(coneTotal * 0.4f).ToString();
-            s1Txt.text = "";
-            if (level.getStars() == null || level.getStars() < 1) { level.setStars(1); }
-        }
-        if (coneCount > (coneTotal * 0.4))
-        {
-            star2.color = Color.yellow;
-            s3Txt.text = Mathf.Round(coneTotal * 0.6f).ToString();
-            s2Txt.text = "";
-            s1Txt.text = "";
-            if (level.getStars() == null || level.getStars() < 2) { level.setStars(2); }
-        }
-        if (coneCount > (coneTotal * 0.6))
-        {
-            star3.color = Color.yellow;
-            s3Txt.text = "";
-            s2Txt.text = "";
-            s1Txt.text = "";
-            if (level.getStars() == null || level.getStars() < 3) { level.setStars(3); }
-        }
+
     }
 
     void checkHighScore()
