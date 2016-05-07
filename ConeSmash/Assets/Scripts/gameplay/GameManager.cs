@@ -30,9 +30,7 @@ public class GameManager : MonoBehaviour {
 
     //Game Audio
     private bool music;
-    private bool sfx;
-    public AudioSource audioCone;
-    public AudioClip soundCone;
+    public bool sfx;
 
     public AudioSource audioBG;
     public AudioClip soundBG;
@@ -155,22 +153,6 @@ public class GameManager : MonoBehaviour {
     public void AddScore(int x, GameObject cone)
     {
         coneCount = coneCount + x;
-        audioCone = cone.GetComponent<AudioSource>();
-        soundCone = (AudioClip)Instantiate(Resources.Load("Audio/plastic_small_0" + Random.Range(1, 5).ToString()));
-
-        if (sfx)
-        {
-            if (x > 0 && !audioCone.isPlaying && !gameOver)
-            {
-                audioCone.PlayOneShot(soundCone, 0.1f);
-                print("Playing: " + soundCone.name);
-            }
-            else
-            {
-                audioCone.Stop();
-            }
-        }
-        
         SetCountText();
     }
 

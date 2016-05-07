@@ -15,6 +15,9 @@ public class coneScript : MonoBehaviour {
     private Rigidbody rb;
     private float offset = 0.6f;
 
+    public AudioSource audioCone;
+    public AudioClip soundCone;
+
 
     // Use this for initialization
     void Start () {     
@@ -26,17 +29,22 @@ public class coneScript : MonoBehaviour {
         rb = cone.GetComponent<Rigidbody>();
         cone.transform.rotation = Quaternion.identity;
 
+        audioCone = cone.GetComponent<AudioSource>();
+        soundCone = (AudioClip)Instantiate(Resources.Load("Audio/plastic_small_0" + Random.Range(1, 5).ToString()));
+
         knockedOver = false;
         scored = false;
 
     }
 
     // Update is called once per frame
-    void Update() {
+    void Update()
+    {
 
         freezeCone(); //TODO pretty crude, consider moving.
-     
-        if (!knockedOver) { 
+
+        if (!knockedOver)
+        {
             if (cone.transform.rotation.x > offset || cone.transform.rotation.x < -offset)
             {
                 //print("X rot exceeded: " + cone.transform.rotation.x.ToString());
@@ -54,28 +62,41 @@ public class coneScript : MonoBehaviour {
             }
         }
 
-        if(knockedOver && !scored)
+        if (knockedOver && !scored)
         {
             mesh.enabled = true;
             capsule.enabled = false;
 
-       
-            gm.AddScore(1,gameObject);
 
-            scored = true;
+            if (gm.sfx)
+            {
+                    audioCone.PlayOneShot(soundCone, 0.1f);
+                    print("Playing: " + soundCone.name);
+
+
+                }
+
+                gm.AddScore(1, gameObject);
+
+                scored = true;
+            
         }
 
-        if(knockedOver && scored && (cone.transform.rotation.z < 0.1 && cone.transform.rotation.z > -0.1))
+        if (audioCone.isPlaying)
         {
-            //print("Oops! Haven't knocked over: " + cone.name);
+            audioCone.Stop();
+        }
+
+        if (knockedOver && scored && (cone.transform.rotation.z < 0.1 && cone.transform.rotation.z > -0.1))
+        {
             capsule.enabled = true;
             mesh.enabled = false;
             knockedOver = false;
-            gm.AddScore(-1,gameObject);
+            gm.AddScore(-1, gameObject);
             scored = false;
 
         }
-
+   
     }
 
     public void freezeCone()
