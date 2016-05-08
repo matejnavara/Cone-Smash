@@ -1,15 +1,16 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 using UnityEngine.SceneManagement;
 
 public class menuScript : MonoBehaviour {
 
     public Canvas levelMenu;
+    public Canvas shopMenu;
     public Canvas settingsMenu;
     public Canvas quitMenu;
 
     public Button startButton;
+    public Button shopButton;
     public Button settingsButton;
     public Button quitButton;
 
@@ -17,14 +18,17 @@ public class menuScript : MonoBehaviour {
 	void Start () {
 
         levelMenu = levelMenu.GetComponent<Canvas>();
+        shopMenu = shopMenu.GetComponent<Canvas>();
         settingsMenu = settingsMenu.GetComponent<Canvas>();
         quitMenu = quitMenu.GetComponent<Canvas>();
 
         startButton = startButton.GetComponent<Button>();
+        shopButton = shopButton.GetComponent<Button>();
         settingsButton = settingsButton.GetComponent<Button>();
         quitButton = quitButton.GetComponent<Button>();
 
         levelMenu.enabled = false;
+        shopMenu.enabled = false;
         settingsMenu.enabled = false;
         quitMenu.enabled = false;
 	
@@ -35,6 +39,17 @@ public class menuScript : MonoBehaviour {
     {
         levelMenu.enabled = true;
         startButton.enabled = false;
+        shopButton.enabled = false;
+        settingsButton.enabled = false;
+        quitButton.enabled = false;
+    }
+
+    //SHOP SELECT MENU
+    public void ShopPressed()
+    {
+        shopMenu.enabled = true;
+        startButton.enabled = false;
+        shopButton.enabled = false;
         settingsButton.enabled = false;
         quitButton.enabled = false;
     }
@@ -43,7 +58,9 @@ public class menuScript : MonoBehaviour {
     public void BackPressed()
     {
         levelMenu.enabled = false;
+        shopMenu.enabled = false;
         startButton.enabled = true;
+        shopButton.enabled = true;
         settingsButton.enabled = true;
         quitButton.enabled = true;
     }
@@ -58,6 +75,7 @@ public class menuScript : MonoBehaviour {
     {
         settingsMenu.enabled = true;
         startButton.enabled = false;
+        shopButton.enabled = false;
         settingsButton.enabled = false;
         quitButton.enabled = false;
     }
@@ -67,6 +85,7 @@ public class menuScript : MonoBehaviour {
     {
         settingsMenu.enabled = false;
         startButton.enabled = true;
+        shopButton.enabled = true;
         settingsButton.enabled = true;
         quitButton.enabled = true;
     }
@@ -77,6 +96,7 @@ public class menuScript : MonoBehaviour {
     {
         quitMenu.enabled = true;
         startButton.enabled = false;
+        shopButton.enabled = false;
         settingsButton.enabled = false;
         quitButton.enabled = false;
     }
@@ -86,6 +106,7 @@ public class menuScript : MonoBehaviour {
     {
         quitMenu.enabled = false;
         startButton.enabled = true;
+        shopButton.enabled = true;
         settingsButton.enabled = true;
         quitButton.enabled = true;
     }
