@@ -167,6 +167,7 @@ public class GameManager : MonoBehaviour {
     void gameFinished()
     {
         gameOver = true;
+        paused = true;
         countText.enabled = false;
         timerText.enabled = false;
         GameObject.FindGameObjectWithTag("Player").SetActive(false);
