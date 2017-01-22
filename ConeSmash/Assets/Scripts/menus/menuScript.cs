@@ -4,111 +4,61 @@ using UnityEngine.SceneManagement;
 
 public class menuScript : MonoBehaviour {
 
-    public Canvas levelMenu;
-    public Canvas shopMenu;
-    public Canvas settingsMenu;
-    public Canvas quitMenu;
+    public GameObject mainMenu;
+    public GameObject levelMenu;
+    public GameObject shopMenu;
+    public GameObject settingsMenu;
+    public GameObject quitMenu;
 
-    public Button startButton;
-    public Button shopButton;
-    public Button settingsButton;
-    public Button quitButton;
 
-	// Use this for initialization
-	void Start () {
 
-        levelMenu = levelMenu.GetComponent<Canvas>();
-        shopMenu = shopMenu.GetComponent<Canvas>();
-        settingsMenu = settingsMenu.GetComponent<Canvas>();
-        quitMenu = quitMenu.GetComponent<Canvas>();
-
-        startButton = startButton.GetComponent<Button>();
-        shopButton = shopButton.GetComponent<Button>();
-        settingsButton = settingsButton.GetComponent<Button>();
-        quitButton = quitButton.GetComponent<Button>();
-
-        levelMenu.enabled = false;
-        shopMenu.enabled = false;
-        settingsMenu.enabled = false;
-        quitMenu.enabled = false;
-	
-	}
+    // Use this for initialization
+    void Start () {
+        BackPressed();
+    }
 
     //LEVEL SELECT MENU
     public void PlayPressed()
     {
-        levelMenu.enabled = true;
-        startButton.enabled = false;
-        shopButton.enabled = false;
-        settingsButton.enabled = false;
-        quitButton.enabled = false;
+        levelMenu.SetActive(true);
+        mainMenu.SetActive(false);
     }
 
     //SHOP SELECT MENU
     public void ShopPressed()
     {
-        shopMenu.enabled = true;
-        startButton.enabled = false;
-        shopButton.enabled = false;
-        settingsButton.enabled = false;
-        quitButton.enabled = false;
-    }
-
-    //return to main menu
-    public void BackPressed()
-    {
-        levelMenu.enabled = false;
-        shopMenu.enabled = false;
-        startButton.enabled = true;
-        shopButton.enabled = true;
-        settingsButton.enabled = true;
-        quitButton.enabled = true;
-    }
-
-    public void PlayLevel(int index)
-    {
-        SceneManager.LoadScene(index);
+        shopMenu.SetActive(true);
+        shopMenu.GetComponent<shopMenuScript>().setupShop();
+        mainMenu.SetActive(false);
     }
 
     //SETTINGS MENU
     public void SettingsPressed()
     {
-        settingsMenu.enabled = true;
-        startButton.enabled = false;
-        shopButton.enabled = false;
-        settingsButton.enabled = false;
-        quitButton.enabled = false;
+        settingsMenu.SetActive(true);
+        mainMenu.SetActive(false);
     }
-
-    //return to main menu
-    public void SettingsClosePressed()
-    {
-        settingsMenu.enabled = false;
-        startButton.enabled = true;
-        shopButton.enabled = true;
-        settingsButton.enabled = true;
-        quitButton.enabled = true;
-    }
-
 
     //QUIT MENU
     public void ExitPressed()
     {
-        quitMenu.enabled = true;
-        startButton.enabled = false;
-        shopButton.enabled = false;
-        settingsButton.enabled = false;
-        quitButton.enabled = false;
+        quitMenu.SetActive(true);
+        mainMenu.SetActive(false);
     }
 
     //return to main menu
-    public void NoPressed()
+    public void BackPressed()
     {
-        quitMenu.enabled = false;
-        startButton.enabled = true;
-        shopButton.enabled = true;
-        settingsButton.enabled = true;
-        quitButton.enabled = true;
+        mainMenu.SetActive(true);
+        levelMenu.SetActive(false);
+        shopMenu.SetActive(false);
+        settingsMenu.SetActive(false);
+        quitMenu.SetActive(false);
+    }
+
+    public void PlayLevel(int index)
+    {
+        SceneManager.LoadScene(index);
     }
 
     //exit application
