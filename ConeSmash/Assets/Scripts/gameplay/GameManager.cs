@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour {
     private int index;
 
     //Control Elements
+    public GameObject player;
 	public GameObject controller;
     public GameObject pauseButton;
 
@@ -47,6 +48,7 @@ public class GameManager : MonoBehaviour {
         GetThisGameManager();
         controllerCheck();
         soundCheck();
+        spawnPlayer();
     }
 
     void GetThisGameManager()
@@ -128,6 +130,41 @@ public class GameManager : MonoBehaviour {
 
     }
 
+    void spawnPlayer()
+    {
+        if (GameObject.FindGameObjectWithTag("Player") == null) {
+            int choice;
+            Vector3 playerSpawn = GameObject.Find("playerSpawn").transform.position;
+
+            if (PlayerPrefs.HasKey("selectedBall"))
+            {
+                choice = PlayerPrefs.GetInt("selectedBall");
+            }
+            else {
+                choice = 1;
+            }
+
+            switch (choice)
+            {
+                case 1:
+                    player = (GameObject)Instantiate(Resources.Load("Prefabs/player_football"));
+                    player.transform.position = playerSpawn;
+                    break;
+                case 2:
+                    player = (GameObject)Instantiate(Resources.Load("Prefabs/player_basketball"));
+                    player.transform.position = playerSpawn;
+                    break;
+                case 3:
+                    player = (GameObject)Instantiate(Resources.Load("Prefabs/player_bowling"));
+                    player.transform.position = playerSpawn;
+                    break;
+                default:
+                    print("Error case at playerSpawn");
+                    break;
+            }
+        }
+    }
+
     public void soundOn(string x)
     {
         if(x == "music") { music = true; }
@@ -191,6 +228,7 @@ public class GameManager : MonoBehaviour {
             star3.color = Color.yellow;
             star2.color = Color.yellow;
             star1.color = Color.yellow;
+            if(level.getStars() < 3) { level.setStars(3); }
         } else if (coneCount > (coneTotal * 0.4f))
         {
             s3Txt.text = Mathf.Round(coneTotal * 0.6f).ToString();
@@ -198,12 +236,14 @@ public class GameManager : MonoBehaviour {
             s1Txt.text = "";
             star2.color = Color.yellow;
             star1.color = Color.yellow;
+            if (level.getStars() < 2) { level.setStars(2); }
         } else if (coneCount > (coneTotal * 0.2f))
         {
             s3Txt.text = Mathf.Round(coneTotal * 0.6f).ToString();
             s2Txt.text = Mathf.Round(coneTotal * 0.4f).ToString();
             s1Txt.text = "";
             star1.color = Color.yellow;
+            if (level.getStars() < 1) { level.setStars(1); }
         } else {
             s3Txt.text = Mathf.Round(coneTotal * 0.6f).ToString();
             s2Txt.text = Mathf.Round(coneTotal * 0.4f).ToString();
