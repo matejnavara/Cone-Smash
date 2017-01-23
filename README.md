@@ -9,6 +9,6 @@ Feel free to play the game or look through the codebase to suggest any improveme
 Constructive criticism is always happily received! :)
 
 Have a look at my other work on:
-www.MatejNavara.com
+MatejNavara.com
 
 
