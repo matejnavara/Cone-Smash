@@ -1,28 +1,33 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class PlayerSpecialMove : MonoBehaviour {
 
     bool triggered;
     float force = 50f;
-    public float recharge = 100f;
+    public float rechargeCounter = 100f;
+    public float recharchRate = 0.2f;
+
+    public GameObject recharge;
+
     Rigidbody player;
     RectTransform rechargeRect;
+    public Image rechargeImage;
 
-    public GameObject rechargeImage;
-
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 
         triggered = false;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>();
-        rechargeRect = rechargeImage.GetComponent<RectTransform>();
+        rechargeRect = recharge.GetComponent<RectTransform>();
+        rechargeImage = recharge.GetComponentInChildren<Image>();
 	
 	}
 
     public void triggerMove()
     {
-        if (!triggered && recharge >= 100f)
+        if (!triggered && rechargeCounter >= 100f)
         {
             print("MOVE TRIGGERED!");
             triggered = true;
@@ -35,15 +40,21 @@ public class PlayerSpecialMove : MonoBehaviour {
         {
             player.AddForce(transform.up * force, ForceMode.Impulse);
             triggered = false;
-            recharge = 0;
+            rechargeCounter = 0;
         }
         
-        if(recharge < 100f)
+        if(rechargeCounter < 100f)
         {
-            recharge += 0.2f;
+            rechargeCounter += recharchRate;
+            rechargeImage.color = new Color(1, 0, 0, 1);
+            recharge.transform.localScale = new Vector3(1, rechargeCounter / 100f, 1);
+        }
+        else
+        {
+            rechargeImage.color = new Color(0, 1, 0, 1);
         }
 
-        rechargeImage.transform.localScale = new Vector3( 1, recharge / 100f, 1);
+        
 
     }
 	
