@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour {
     public GameObject pauseButton;
 
     //UI Elements
-    private Text countText, timerText, finalText;
+    private Text countText, timerText, finalText, highscoreText;
     private Image star1, star2, star3;
     private Text s1Txt, s2Txt, s3Txt;
     private GameObject gameoverPanel;
@@ -254,18 +254,19 @@ public class GameManager : MonoBehaviour {
 
     void checkHighScore()
     {
-		if (level.getHighScore() == null || level.getHighScore() < coneCount)
+		if (level.getHighScore() < coneCount)
         {
 			level.setHighScore(coneCount);
             newHighscore = true;
         }
         if (newHighscore)
         {
-            finalText.text = "NEW HIGHSCORE! Smashed " + coneCount + " out of " + coneTotal + " cones in 30 seconds!";
+            highscoreText.text = "NEW HIGHSCORE!";
         }
         else {
-			finalText.text = "High Score: " + level.getHighScore() + "  Smashed " + coneCount + " out of " + coneTotal + " cones in 30 seconds.";
+			highscoreText.text = "High Score: " + level.getHighScore();
         }
+        finalText.text = "You smashed " + coneCount + " out of " + coneTotal + " cones in " + level.getStartTime() + " seconds!";
     }
     
     //Public bool to check for gameover condition
@@ -312,7 +313,8 @@ public class GameManager : MonoBehaviour {
         if (countText == null){ countText = GameObject.Find("GameUI/Count Text").GetComponent<Text>();}
         if(timerText == null){ timerText = GameObject.Find("GameUI/Timer Text").GetComponent<Text>();}
         if (finalText == null){ finalText = GameObject.Find("GameUI/GameOver Panel/final Text").GetComponent<Text>();}
-		if (star1 == null){ star1 = GameObject.Find("GameUI/GameOver Panel/star1").GetComponent<Image>();}
+        if (highscoreText == null) { highscoreText = GameObject.Find("GameUI/GameOver Panel/highscore Text").GetComponent<Text>(); }
+        if (star1 == null){ star1 = GameObject.Find("GameUI/GameOver Panel/star1").GetComponent<Image>();}
 		if (star2 == null){ star2 = GameObject.Find("GameUI/GameOver Panel/star2").GetComponent<Image>();}
 		if (star3 == null){ star3 = GameObject.Find("GameUI/GameOver Panel/star3").GetComponent<Image>();}
         if (s1Txt == null) { s1Txt = GameObject.Find("GameUI/GameOver Panel/star1/Text").GetComponent<Text>(); }
