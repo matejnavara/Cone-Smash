@@ -4,11 +4,12 @@ using UnityEngine.UI;
 
 public class PlayerSpecialMove : MonoBehaviour {
 
-    public GameObject moveBtn;
-    public GameObject rechargeImage;
+    public GameObject moveObj;
+    public GameObject rechargeObj;
 
-    private Image image;
-    private Text text;
+    private Button moveBtn;
+    private Image rechargeImg;
+    private Text moveTxt;
 
     private Vector3 force;
     private float rechargeCounter;
@@ -21,8 +22,9 @@ public class PlayerSpecialMove : MonoBehaviour {
 
         triggered = false;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>();
-        image = rechargeImage.GetComponentInChildren<Image>();
-        text = moveBtn.GetComponentInChildren<Text>();
+        moveBtn = moveObj.GetComponent<Button>();
+        rechargeImg = rechargeObj.GetComponent<Image>();
+        moveTxt = moveObj.GetComponentInChildren<Text>();
         rechargeCounter = 100f;
         selectMove();
 	
@@ -45,17 +47,17 @@ public class PlayerSpecialMove : MonoBehaviour {
             case 1:
                 force = transform.up * 50f;
                 recharchRate = 0.3f;
-                text.text = "S H O O T !";
+                moveTxt.text = "S H O O T !";
                 break;
             case 2:
-                force = transform.up * 30f;
+                force = transform.up * 20f;
                 recharchRate = 0.5f;
-                text.text = "B O U N C E !";
+                moveTxt.text = "B O U N C E !";
                 break;
             case 3:
                 force = transform.forward * 200f;
                 recharchRate = 0.2f;
-                text.text = "B O W L !";
+                moveTxt.text = "B O W L !";
                 break;
             default:
                 print("Error case at selectMove");
@@ -83,13 +85,18 @@ public class PlayerSpecialMove : MonoBehaviour {
         
         if(rechargeCounter < 100f)
         {
+            //Recharging power
             rechargeCounter += recharchRate;
-            rechargeImage.transform.localScale = new Vector3(1, rechargeCounter / 100f, 1);
-            image.color = new Color(1, 0, 0, 1);
+            rechargeObj.transform.localScale = new Vector3(1, rechargeCounter / 100f, 1);
+            rechargeImg.color = new Color(1, 0, 0, 1);
+            moveBtn.interactable = false;
         }
         else
         {
-            image.color = new Color(0, 1, 0, 1);
+            //Power recharged!
+            
+            rechargeImg.color = new Color(0, 1, 0, 1);
+            moveBtn.interactable = true;
         }
     }
 	

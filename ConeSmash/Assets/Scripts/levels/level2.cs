@@ -7,8 +7,8 @@ public class level2 : Level {
     {
         levelName = "level2";
 		levelIndex = 2;
-		levelStartTime = 45f;
-
+		levelStartTime = 90f;
+        levelMusic = "Audio/footballcrowd";
     }
 		
 	

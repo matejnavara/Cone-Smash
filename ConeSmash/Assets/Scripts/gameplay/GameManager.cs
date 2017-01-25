@@ -289,7 +289,7 @@ public class GameManager : MonoBehaviour {
         gameoverPanel.SetActive(false);
 
         audioBG = gameObject.GetComponent<AudioSource>();
-        soundBG = (AudioClip)Instantiate(Resources.Load("Audio/Stupid Robot"));
+        soundBG = (AudioClip)Instantiate(Resources.Load(level.getMusic()));
       
 
         star1.color = Color.grey;

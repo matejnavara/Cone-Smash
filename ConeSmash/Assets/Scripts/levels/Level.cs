@@ -6,7 +6,9 @@ public class Level : MonoBehaviour{
 	protected string levelName;
 	protected int levelIndex;
 	protected float levelStartTime;
-	private int highScore;
+    protected string levelMusic;
+
+    private int highScore;
 	private int stars;
 
 	
@@ -26,4 +28,16 @@ public class Level : MonoBehaviour{
 		PlayerPrefs.SetInt(levelName+"Stars", star);
         print("Logging stars for " + levelName + "Stars" + " as " + star);
 	}
+
+    public string getMusic()
+    {
+        if(levelMusic != null)
+        {
+            return levelMusic;
+        } else
+        {
+            string defaultMusic = "Audio/Stupid Robot";
+            return defaultMusic;
+        }
+    }
 }
